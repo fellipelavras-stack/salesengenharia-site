@@ -583,8 +583,11 @@ export function houseScene(o) {
   function resize() {
     const r = host.getBoundingClientRect(), W = Math.max(1, r.width), H = Math.max(1, r.height);
     renderer.setSize(W, H, false); camera.aspect = W / H;
-    const R = 7.0, vf = THREE.MathUtils.degToRad(camera.fov / 2), hf = Math.atan(Math.tan(vf) * camera.aspect);
-    dist = R / Math.sin(Math.min(vf, hf)) * .95; camera.updateProjectionMatrix();
+    const wide = !!o.shift && W >= 900;
+    if (wide) camera.setViewOffset(W, H, -W * o.shift, 0, W, H); else camera.clearViewOffset();
+    const aspect = wide ? W * (1 - 2 * o.shift) / H : camera.aspect;
+    const R = 7.0, vf = THREE.MathUtils.degToRad(camera.fov / 2), hf = Math.atan(Math.tan(vf) * aspect);
+    dist = R / Math.sin(Math.min(vf, hf)) * (wide ? 1.16 : 1.12); camera.updateProjectionMatrix();
   }
   new ResizeObserver(resize).observe(host); resize();
   let time = 0, first = true;

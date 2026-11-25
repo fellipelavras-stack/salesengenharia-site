@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sales Engenharia</title>
-<meta name="description" content="Projetos de infraestrutura e de edificações para todo o Brasil e obras no Sul: terraplenagem, contenções, drenagem, pavimentação, projetos arquitetônico, estrutural, elétrico e hidrossanitário, 3D e design de interiores.">
+<meta name="description" content="Infraestrutura e edificações: projetos para todo o Brasil e execução de obras em todo o Sul. Terraplenagem, contenções, drenagem, pavimentação, arquitetura, estrutura, instalações, 3D e interiores.">
 <meta name="theme-color" content="#232F5F">
 <link rel="canonical" href="https://salesengenharia.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -13,14 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Sales Engenharia | Infraestrutura e edificações">
-<meta property="og:description" content="Terraplenagem, contenções, drenagem e pavimentação. Projetos arquitetônico, estrutural, elétrico e hidrossanitário, com 3D e interiores.">
+<meta property="og:description" content="Projetos para todo o Brasil e execução de obras em todo o Sul: terraplenagem, contenções, drenagem, pavimentação, arquitetura, estrutura, instalações, 3D e interiores.">
 <meta property="og:url" content="https://salesengenharia.com/">
 <meta property="og:image" content="https://salesengenharia.com/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="modulepreload" href="cena.js">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Sales Engenharia","url":"https://salesengenharia.com/","logo":"https://salesengenharia.com/icone.svg","image":"https://salesengenharia.com/og.jpg","telephone":"+55 47 99252-4497","email":"contato@salesengenharia.com","address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"BR"},"areaServed":[{"@type":"Country","name":"Brasil"}],"description":"Projetos de infraestrutura e de edificações para todo o Brasil. Execução e gerenciamento de obras no Sul do Brasil.","knowsAbout":["Terraplenagem","Contenções","Drenagem pluvial","Pavimentação","Geotecnia","Loteamentos","Projeto arquitetônico","Projeto estrutural","Projeto elétrico","Projeto hidrossanitário","Modelagem 3D e renderização","Design de interiores","Gerenciamento de obras"]}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Sales Engenharia","url":"https://salesengenharia.com/","logo":"https://salesengenharia.com/icone.svg","image":"https://salesengenharia.com/og.jpg","telephone":"+55 47 99252-4497","email":"contato@salesengenharia.com","address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"BR"},"areaServed":[{"@type":"Country","name":"Brasil"}],"description":"Infraestrutura e edificações: projetos para todo o Brasil e execução de obras em todo o Sul do Brasil.","knowsAbout":["Terraplenagem","Contenções","Drenagem pluvial","Pavimentação","Geotecnia","Loteamentos","Projeto arquitetônico","Projeto estrutural","Projeto elétrico","Projeto hidrossanitário","Modelagem 3D e renderização","Design de interiores","Gerenciamento de obras"]}
 </script>
 <style>
 /*
@@ -38,7 +38,7 @@ LAYOUT: abertura de tela cheia com a maquete à direita e controles de etapa; li
   --wide:"wdth" 118;--max:1200px;--gut:max(5vw,18px);
 }
 *{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
 img,svg,canvas{display:block;max-width:100%}
@@ -72,17 +72,28 @@ p{margin:0}
 .top .btn{min-height:42px;padding:8px 16px;font-size:15px}
 .menu{display:none;margin-left:auto;background:none;border:0;color:#fff;width:48px;height:48px;border-radius:8px;cursor:pointer}
 .menu svg{width:26px;height:26px;margin:auto}
+/* abas */
+.tabs{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);margin-left:12px}
+.tabs button{border:0;background:none;color:rgba(255,255,255,.8);font:600 15px/1 "Archivo",sans-serif;padding:11px 18px;border-radius:999px;cursor:pointer;min-height:42px;white-space:nowrap;transition:background .2s,color .2s}
+.tabs button:hover{color:#fff}
+.tabs button[aria-selected=true]{background:var(--gold);color:var(--navy-3)}
+[role=tabpanel][hidden]{display:none}
+@media (min-width:1021px) and (max-width:1200px){.nav a[href="#processo"]{display:none}}
 @media (max-width:1020px){
+  html{scroll-padding-top:132px}
+  .top .wrap{flex-wrap:wrap;row-gap:0}
   .menu{display:block}
   .top .btn{display:none}
-  .nav{display:none;position:absolute;left:0;right:0;top:72px;flex-direction:column;background:var(--navy);padding:8px var(--gut) 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .tabs{order:3;width:100%;margin:0 0 10px;display:grid;grid-template-columns:1fr 1fr;border-radius:12px}
+  .tabs button{border-radius:9px;font-size:15px;padding:12px 6px}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--navy);padding:8px var(--gut) 20px;border-bottom:1px solid rgba(255,255,255,.1)}
   .nav.open{display:flex}
   .nav a{font-size:17px;padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0}
 }
-
 /* abertura */
 .hero{background:radial-gradient(120% 90% at 72% 40%,#2f3f78 0%,var(--navy) 46%,#1b2550 100%);color:#fff}
-.hero-main{position:relative;min-height:min(860px,calc(100vh - 72px));display:flex;flex-direction:column}
+.hero.alt{background:radial-gradient(120% 90% at 72% 45%,#33467f 0%,#24305f 48%,#1a2349 100%)}
+.hero-main{position:relative;min-height:min(840px,calc(100vh - 72px));display:flex;flex-direction:column}
 .hero-main>.wrap{width:100%}
 .stage{position:absolute;inset:0;overflow:hidden}
 .stage canvas,.stage .poster{position:absolute;inset:0;width:100%;height:100%;max-width:none}
@@ -111,6 +122,8 @@ p{margin:0}
 .pp svg{width:18px;height:18px}
 .pp[hidden]{display:none}
 .chips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;flex:1}
+.chips.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+.chips.auto [aria-current=step] .fill{transition:width 3.9s linear}
 .chips button{position:relative;width:100%;min-height:44px;padding:16px 4px 6px;border:0;background:none;color:rgba(255,255,255,.62);font:500 13px/1.2 "Archivo",sans-serif;cursor:pointer;text-align:left}
 .chips button::before{content:"";position:absolute;left:0;right:0;top:6px;height:3px;border-radius:2px;background:rgba(255,255,255,.18)}
 .chips .fill{position:absolute;left:0;top:6px;height:3px;border-radius:2px;background:var(--gold);width:0}
@@ -149,36 +162,12 @@ p{margin:0}
 .svc h3{color:var(--navy)}
 .svc .get{grid-column:2;font-size:14.5px;color:var(--muted);line-height:1.5}
 .svc .get b{color:var(--navy);font-weight:600}
+.services.edif{background:#F7F8FB}
 @media (max-width:860px){
   .services .wrap{grid-template-columns:minmax(0,1fr)}
   .services-head{position:static}
   .svc{grid-template-columns:minmax(0,1fr)}
   .svc .get{grid-column:1}
-}
-
-/* edificações */
-.build{background:var(--navy-3);color:#fff}
-.build-head{display:grid;gap:16px;max-width:760px}
-.build-head p{color:rgba(255,255,255,.8)}
-.build-head .hint{font-size:15px;color:var(--gold)}
-.build-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);margin-top:40px;align-items:start}
-.disc{display:grid;gap:2px}
-.disc button{display:grid;gap:4px;text-align:left;width:100%;padding:16px 18px 16px 20px;border:0;border-left:3px solid transparent;border-radius:0 10px 10px 0;background:none;color:#fff;cursor:pointer;font:inherit;transition:background .25s,border-color .25s}
-.disc button b{font-variation-settings:var(--wide);font-size:19px;font-weight:700}
-.disc button span{font-size:15px;line-height:1.5;color:rgba(255,255,255,.7)}
-.disc button:hover{background:rgba(255,255,255,.04)}
-.disc button[aria-pressed=true]{background:rgba(199,171,105,.12);border-left-color:var(--gold)}
-.disc button[aria-pressed=true] b{color:var(--gold)}
-.house{position:sticky;top:96px;aspect-ratio:1/0.92;border-radius:16px;overflow:hidden;background:radial-gradient(90% 80% at 50% 45%,#2c3a70 0%,#1d2754 60%,#161e44 100%);border:1px solid rgba(255,255,255,.08)}
-.house canvas,.house .poster{position:absolute;inset:0;width:100%;height:100%;max-width:none}
-.house .poster{object-fit:cover;transition:opacity .6s}
-.house.ready .poster{opacity:0}
-.house canvas{cursor:grab;touch-action:pan-y}
-.house-cap{position:absolute;left:16px;bottom:14px;font-size:14px;color:rgba(255,255,255,.75);background:rgba(14,20,48,.6);padding:6px 10px;border-radius:6px;z-index:2}
-.build-note{margin-top:36px;padding:18px 20px;border:1px solid rgba(199,171,105,.35);border-radius:10px;color:rgba(255,255,255,.85);max-width:760px}
-@media (max-width:900px){
-  .build-grid{grid-template-columns:minmax(0,1fr)}
-  .house{position:sticky;top:76px;z-index:3;order:-1;aspect-ratio:1/.78;box-shadow:0 10px 24px rgba(10,14,36,.45)}
 }
 
 /* público */
@@ -271,18 +260,20 @@ footer a:hover{color:#fff}
 @media (prefers-reduced-motion:reduce){.wa-float,.btn,.channel,.disc button,.stage .poster,.house .poster{transition:none}}
 </style>
 </head>
-<body>
+<body data-tab="infra">
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="Sales Engenharia, início"><img src="logo-claro.svg" alt="Sales Engenharia" width="125" height="42"></a>
+    <a class="brand" href="#infraestrutura" aria-label="Sales Engenharia, início"><img src="logo-claro.svg" alt="Sales Engenharia" width="125" height="42"></a>
+    <div class="tabs" role="tablist" aria-label="Áreas da Sales Engenharia">
+      <button type="button" role="tab" id="tab-infra" data-tab="infra" aria-controls="infraestrutura" aria-selected="true">Infraestrutura</button>
+      <button type="button" role="tab" id="tab-edif" data-tab="edif" aria-controls="edificacoes" aria-selected="false" tabindex="-1">Edificações</button>
+    </div>
     <nav class="nav" id="nav" aria-label="Seções">
-      <a href="#servicos">Infraestrutura</a>
-      <a href="#edificacoes">Edificações</a>
-      <a href="#publico">Para quem</a>
+      <a href="#infra-servicos" id="navServ">Serviços</a>
+      <a href="#processo">Como trabalhamos</a>
       <a href="#atuacao">Atuação</a>
-      <a href="#sobre">Equipe</a>
       <a href="#contato">Contato</a>
     </nav>
     <a class="btn btn-gold" data-wa href="https://wa.me/5547992524497"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Pedir orçamento</a>
@@ -293,7 +284,10 @@ footer a:hover{color:#fff}
 </header>
 
 <main id="conteudo">
-<section class="hero" id="inicio">
+
+<!-- ================= ABA INFRAESTRUTURA ================= -->
+<div role="tabpanel" id="infraestrutura" aria-labelledby="tab-infra">
+<section class="hero">
   <div class="hero-main">
     <div class="stage" id="stage">
       <img class="poster" src="hero-poster.jpg" alt="" aria-hidden="true">
@@ -301,11 +295,11 @@ footer a:hover{color:#fff}
     </div>
     <div class="wrap hero-copy">
       <div class="hero-text">
-        <h1>Projetos de infraestrutura e edificações para todo o Brasil e obras no Sul</h1>
-        <p class="lead">Terraplenagem, contenções, drenagem e pavimentação. Projetos arquitetônico, estrutural, elétrico e hidrossanitário, com 3D e design de interiores.</p>
+        <h1>Projetos de infraestrutura para todo o Brasil e execução de obras em todo o Sul</h1>
+        <p class="lead">Terraplenagem, contenções, drenagem, pavimentação e loteamentos, com gerenciamento de obras do orçamento à medição final.</p>
         <div class="ctas">
           <a class="btn btn-gold" data-wa href="https://wa.me/5547992524497"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Pedir orçamento no WhatsApp</a>
-          <a class="btn btn-line" href="#servicos">Ver serviços</a>
+          <a class="btn btn-line" href="#infra-servicos">Ver serviços</a>
         </div>
       </div>
     </div>
@@ -318,7 +312,7 @@ footer a:hover{color:#fff}
             <li><button type="button" data-s="0"><span class="fill"></span><span class="lbl">Terreno</span><span class="num" aria-hidden="true">1</span></button></li>
             <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">2</span></button></li>
             <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Contenções</span><span class="num" aria-hidden="true">3</span></button></li>
-            <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Infraestrutura</span><span class="num" aria-hidden="true">4</span></button></li>
+            <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Drenagem</span><span class="num" aria-hidden="true">4</span></button></li>
             <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">5</span></button></li>
           </ol>
         </div>
@@ -328,17 +322,17 @@ footer a:hover{color:#fff}
   <div class="creds-band">
     <ul class="wrap creds">
       <li><b>Geotecnia e pavimentação</b>Especialização em engenharia geotécnica e de pavimentação</li>
-      <li><b>Projetos de edificações</b>Arquitetura, estrutura, instalações e interiores</li>
       <li><b>Certificação PMP</b>Gerenciamento de projetos e obras</li>
+      <li><b>AutoCAD Civil 3D</b>Modelagem de terreno, greides, redes e volumes</li>
       <li><b>ART em todo serviço</b>Responsabilidade técnica registrada no CREA</li>
     </ul>
   </div>
 </section>
 
-<section class="band services" id="servicos">
+<section class="band services" id="infra-servicos">
   <div class="wrap">
     <div class="services-head">
-      <h2>Infraestrutura</h2>
+      <h2>Serviços de infraestrutura</h2>
       <p>Do levantamento do terreno à obra pronta. Os projetos são entregues em DWG e PDF, com memorial, quantitativos e responsabilidade técnica.</p>
       <p class="art">Todo projeto e toda obra têm ART emitida no CREA, com engenheiro responsável do início ao fim.</p>
     </div>
@@ -372,10 +366,10 @@ footer a:hover{color:#fff}
         </article>
       </div>
       <div class="group">
-        <p class="group-title"><strong>Obras e gestão</strong><span>No Sul do Brasil</span></p>
+        <p class="group-title"><strong>Execução e gerenciamento</strong><span>Em todo o Sul do Brasil</span></p>
         <article class="svc">
           <h3>Execução de obras</h3>
-          <p>Obras de infraestrutura e de construção civil em geral: terraplenagem, contenções, drenagem, pavimentação, edificações e reformas.</p>
+          <p>Terraplenagem, contenções, drenagem, pavimentação e infraestrutura de loteamentos, com equipe e equipamentos mobilizados para cada etapa.</p>
           <p class="get"><b>Você recebe:</b> obra executada com acompanhamento técnico, diário de obra e medições.</p>
         </article>
         <article class="svc">
@@ -388,50 +382,143 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<section class="band build" id="edificacoes">
+<section class="band audience">
   <div class="wrap">
-    <div class="build-head">
-      <h2>Projetos de edificações</h2>
-      <p>Casas, prédios, lojas e galpões com todos os projetos feitos pela mesma equipe, do estudo arquitetônico às imagens 3D e aos interiores.</p>
-      <p class="hint">Escolha uma disciplina para ver no modelo. Arraste o modelo para girar.</p>
-    </div>
-    <div class="build-grid">
-      <div class="disc" id="disc" role="group" aria-label="Disciplinas do projeto">
-        <button type="button" data-m="arq" aria-pressed="true"><b>Arquitetônico</b><span>Estudo de layout, anteprojeto, projeto legal para aprovação na prefeitura e executivo detalhado.</span></button>
-        <button type="button" data-m="str" aria-pressed="false"><b>Estrutural</b><span>Fundações, pilares, vigas e lajes dimensionados e detalhados, com quantitativo de aço e concreto.</span></button>
-        <button type="button" data-m="ele" aria-pressed="false"><b>Elétrico</b><span>Circuitos, quadros, iluminação e tomadas, conforme a NBR 5410 e a concessionária local.</span></button>
-        <button type="button" data-m="hid" aria-pressed="false"><b>Hidrossanitário</b><span>Água fria e quente, esgoto e águas pluviais, com reservatórios e caixas dimensionados.</span></button>
-        <button type="button" data-m="r3d" aria-pressed="false"><b>Modelagem 3D e renderização</b><span>Maquete eletrônica e imagens realistas para aprovar, vender ou apresentar o projeto.</span></button>
-        <button type="button" data-m="int" aria-pressed="false"><b>Design de interiores</b><span>Layout, marcenaria, iluminação e acabamentos pensados para cada ambiente.</span></button>
-      </div>
-      <div class="house" id="house">
-        <img class="poster" src="casa-poster.jpg" alt="" aria-hidden="true">
-        <canvas id="casa" role="img" aria-label="Modelo 3D de uma casa de dois pavimentos que destaca a disciplina escolhida: arquitetura, estrutura, instalações elétricas, instalações hidrossanitárias, renderização ou interiores."></canvas>
-        <p class="house-cap" id="houseCap">Arquitetônico</p>
-      </div>
-    </div>
-    <p class="build-note">Os projetos saem compatibilizados entre si: estrutura, arquitetura e instalações conferidas juntas, para a obra não parar por conflito entre disciplinas.</p>
-  </div>
-</section>
-
-<section class="band audience" id="publico">
-  <div class="wrap">
-    <h2>Para quem a Sales Engenharia trabalha</h2>
+    <h2>Para quem fazemos infraestrutura</h2>
     <ul class="aud">
       <li><h3>Loteadoras</h3><p>Projetos completos de infraestrutura para aprovar e implantar o loteamento.</p></li>
-      <li><h3>Incorporadoras</h3><p>Terraplenagem, contenções e todos os projetos do edifício, compatibilizados.</p></li>
+      <li><h3>Incorporadoras</h3><p>Terraplenagem, contenções e drenagem do terreno antes do prédio começar.</p></li>
       <li><h3>Construtoras</h3><p>Projetos executivos, quantitativos e execução das etapas de infraestrutura.</p></li>
-      <li><h3>Empresas</h3><p>Galpões, lojas e pátios com projeto completo e pavimento dimensionado para o uso.</p></li>
-      <li><h3>Pessoas físicas</h3><p>Projeto da sua casa, interiores, aterro do lote e acompanhamento da obra.</p></li>
+      <li><h3>Empresas</h3><p>Pátios, galpões e estacionamentos com pavimento dimensionado para o uso.</p></li>
+      <li><h3>Pessoas físicas</h3><p>Aterro e preparo do lote, drenagem e contenções.</p></li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- ================= ABA EDIFICAÇÕES ================= -->
+<div role="tabpanel" id="edificacoes" aria-labelledby="tab-edif" hidden>
+<section class="hero alt">
+  <div class="hero-main">
+    <div class="stage" id="stageE">
+      <img class="poster" src="casa-poster.jpg" alt="" aria-hidden="true">
+      <canvas id="casa" role="img" aria-label="Modelo 3D de uma casa de dois pavimentos que mostra, uma de cada vez, a arquitetura, a estrutura, as instalações elétricas, as instalações hidrossanitárias, a renderização e os interiores."></canvas>
+    </div>
+    <div class="wrap hero-copy">
+      <div class="hero-text">
+        <h1>Projetos de edificações para todo o Brasil e execução de obras em todo o Sul</h1>
+        <p class="lead">Arquitetônico, estrutural, elétrico e hidrossanitário, com 3D, renderização e design de interiores, para casas, prédios, lojas e galpões.</p>
+        <div class="ctas">
+          <a class="btn btn-gold" data-wa href="https://wa.me/5547992524497"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Pedir orçamento no WhatsApp</a>
+          <a class="btn btn-line" href="#edif-servicos">Ver serviços</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap player-wrap">
+      <div class="player" id="playerE" hidden>
+        <div class="cap" aria-live="polite"><strong id="capTE">Arquitetônico</strong><span id="capDE"></span></div>
+        <div class="bar">
+          <button class="pp" id="ppE" type="button" aria-label="Pausar troca automática"><svg viewBox="0 0 24 24" fill="currentColor" id="ppIconE"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+          <ol class="chips six auto" id="chipsE">
+            <li><button type="button" data-m="arq"><span class="fill"></span><span class="lbl">Arquitetura</span><span class="num" aria-hidden="true">1</span></button></li>
+            <li><button type="button" data-m="str"><span class="fill"></span><span class="lbl">Estrutura</span><span class="num" aria-hidden="true">2</span></button></li>
+            <li><button type="button" data-m="ele"><span class="fill"></span><span class="lbl">Elétrica</span><span class="num" aria-hidden="true">3</span></button></li>
+            <li><button type="button" data-m="hid"><span class="fill"></span><span class="lbl">Hidráulica</span><span class="num" aria-hidden="true">4</span></button></li>
+            <li><button type="button" data-m="r3d"><span class="fill"></span><span class="lbl">3D</span><span class="num" aria-hidden="true">5</span></button></li>
+            <li><button type="button" data-m="int"><span class="fill"></span><span class="lbl">Interiores</span><span class="num" aria-hidden="true">6</span></button></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="creds-band">
+    <ul class="wrap creds">
+      <li><b>Projetos compatibilizados</b>Arquitetura, estrutura e instalações conferidas juntas</li>
+      <li><b>3D e renderização</b>Imagens realistas para aprovar e vender</li>
+      <li><b>Design de interiores</b>Layout, marcenaria e acabamentos</li>
+      <li><b>ART em todo serviço</b>Responsabilidade técnica registrada no CREA</li>
     </ul>
   </div>
 </section>
 
+<section class="band services edif" id="edif-servicos">
+  <div class="wrap">
+    <div class="services-head">
+      <h2>Serviços de edificações</h2>
+      <p>Do primeiro estudo à obra pronta. Todos os projetos são feitos pela mesma equipe e entregues em DWG e PDF, com memorial e responsabilidade técnica.</p>
+      <p class="art">Os projetos saem compatibilizados entre si, para a obra não parar por conflito entre estrutura, arquitetura e instalações.</p>
+    </div>
+    <div>
+      <div class="group">
+        <p class="group-title"><strong>Projetos</strong><span>Para todo o Brasil</span></p>
+        <article class="svc">
+          <h3>Arquitetônico</h3>
+          <p>Estudo de layout, anteprojeto, projeto legal para aprovação na prefeitura e executivo detalhado.</p>
+          <p class="get"><b>Você recebe:</b> plantas, cortes, fachadas, quadro de áreas e detalhamentos.</p>
+        </article>
+        <article class="svc">
+          <h3>Estrutural</h3>
+          <p>Fundações, pilares, vigas e lajes dimensionados e detalhados para a obra.</p>
+          <p class="get"><b>Você recebe:</b> formas, armações, quantitativo de aço e concreto e memorial.</p>
+        </article>
+        <article class="svc">
+          <h3>Elétrico</h3>
+          <p>Circuitos, quadros, iluminação e tomadas, conforme a NBR 5410 e a concessionária local.</p>
+          <p class="get"><b>Você recebe:</b> plantas de pontos e circuitos, diagrama unifilar e quadro de cargas.</p>
+        </article>
+        <article class="svc">
+          <h3>Hidrossanitário</h3>
+          <p>Água fria e quente, esgoto e águas pluviais, com reservatórios e caixas dimensionados.</p>
+          <p class="get"><b>Você recebe:</b> plantas, isométricos, detalhes e memorial de cálculo.</p>
+        </article>
+        <article class="svc">
+          <h3>Modelagem 3D e renderização</h3>
+          <p>Maquete eletrônica e imagens realistas para aprovar, vender ou apresentar o projeto.</p>
+          <p class="get"><b>Você recebe:</b> imagens renderizadas de fachadas e ambientes.</p>
+        </article>
+        <article class="svc">
+          <h3>Design de interiores</h3>
+          <p>Layout, marcenaria, iluminação e acabamentos pensados para cada ambiente.</p>
+          <p class="get"><b>Você recebe:</b> layout, projeto de marcenaria, paginação e lista de acabamentos.</p>
+        </article>
+      </div>
+      <div class="group">
+        <p class="group-title"><strong>Execução de obras</strong><span>Em todo o Sul do Brasil</span></p>
+        <article class="svc">
+          <h3>Construção e reforma</h3>
+          <p>Casas, edifícios e espaços comerciais executados por quem fez o projeto, do canteiro ao acabamento.</p>
+          <p class="get"><b>Você recebe:</b> obra executada com cronograma, diário de obra e medições.</p>
+        </article>
+        <article class="svc">
+          <h3>Acompanhamento técnico</h3>
+          <p>Visitas e responsabilidade técnica para quem vai construir com equipe própria, conferindo a obra contra o projeto.</p>
+          <p class="get"><b>Você recebe:</b> relatórios de visita e ART de execução.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band audience">
+  <div class="wrap">
+    <h2>Para quem fazemos edificações</h2>
+    <ul class="aud">
+      <li><h3>Pessoas físicas</h3><p>Projeto completo da sua casa, dos primeiros esboços aos interiores.</p></li>
+      <li><h3>Incorporadoras</h3><p>Projetos compatibilizados de edifícios e imagens 3D para as vendas.</p></li>
+      <li><h3>Construtoras</h3><p>Projetos executivos e quantitativos para orçar e construir sem retrabalho.</p></li>
+      <li><h3>Comércios e empresas</h3><p>Lojas, escritórios e galpões com projeto e execução.</p></li>
+      <li><h3>Escritórios de arquitetura</h3><p>Projetos complementares compatibilizados com a sua arquitetura.</p></li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<!-- ================= SEÇÕES COMUNS ================= -->
 <section class="band process" id="processo">
   <div class="wrap">
     <h2>Como trabalhamos</h2>
     <ol class="steps">
-      <li><h3>Conversa</h3><p>Você conta pelo WhatsApp o que precisa e onde é. Se tiver levantamento topográfico, sondagem ou planta, já envia junto.</p></li>
+      <li><h3>Conversa</h3><p>Você conta pelo WhatsApp o que precisa e onde é. Se tiver levantamento, sondagem ou planta, já envia junto.</p></li>
       <li><h3>Proposta</h3><p>Escopo, prazo e valor por escrito, com o que está incluído e o que não está.</p></li>
       <li><h3>Projeto ou obra</h3><p>Desenvolvimento com revisões combinadas e acompanhamento do engenheiro responsável.</p></li>
       <li><h3>Entrega</h3><p>Arquivos em DWG e PDF, memoriais, imagens 3D e ART. Na obra, medição final e entrega do serviço.</p></li>
@@ -447,9 +534,9 @@ footer a:hover{color:#fff}
     </svg>
     <div class="reach-text">
       <h2>Onde atuamos</h2>
-      <p>Projeto não depende de distância: com levantamento, plantas e reuniões online, atendemos qualquer estado. A execução de obras fica no Sul, onde temos equipe e fornecedores.</p>
+      <p>Projeto não depende de distância: com levantamento, plantas e reuniões online, atendemos qualquer estado. A execução de obras de infraestrutura e de edificações fica no Sul, onde temos equipe e fornecedores.</p>
       <ul class="key">
-        <li><i style="background:var(--gold)"></i><div><b>Projetos e obras</b><span>Paraná, Santa Catarina e Rio Grande do Sul</span></div></li>
+        <li><i style="background:var(--gold)"></i><div><b>Projetos e execução de obras</b><span>Paraná, Santa Catarina e Rio Grande do Sul</span></div></li>
         <li><i style="border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.07)"></i><div><b>Projetos</b><span>Todos os estados do Brasil</span></div></li>
       </ul>
       <p class="credit">Base do mapa: SVG Maps, licença CC BY 4.0.</p>
@@ -495,13 +582,15 @@ footer a:hover{color:#fff}
         <label>Cidade e estado<input name="cidade" autocomplete="address-level2" placeholder="Ex.: Itajaí/SC" required></label>
       </div>
       <label>Serviço
-        <select name="servico">
+        <select name="servico" id="servico">
           <optgroup label="Infraestrutura">
             <option>Projeto de terraplenagem</option>
             <option>Geotecnia e contenções</option>
             <option>Projeto de drenagem</option>
             <option>Projeto de pavimentação</option>
             <option>Infraestrutura de loteamento</option>
+            <option>Execução de obra de infraestrutura</option>
+            <option>Gerenciamento de obra</option>
           </optgroup>
           <optgroup label="Edificações">
             <option>Projeto arquitetônico</option>
@@ -511,10 +600,7 @@ footer a:hover{color:#fff}
             <option>Modelagem 3D e renderização</option>
             <option>Design de interiores</option>
             <option>Projeto completo de edificação</option>
-          </optgroup>
-          <optgroup label="Obras">
-            <option>Execução de obra</option>
-            <option>Gerenciamento de obra</option>
+            <option>Construção ou reforma</option>
           </optgroup>
           <option>Outro</option>
         </select>
@@ -531,7 +617,7 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <img src="logo-claro.svg" alt="Sales Engenharia" width="113" height="38">
     <nav aria-label="Rodapé">
-      <a href="#servicos">Infraestrutura</a><a href="#edificacoes">Edificações</a><a href="#contato">Contato</a>
+      <a href="#infraestrutura">Infraestrutura</a><a href="#edificacoes">Edificações</a><a href="#contato">Contato</a>
       <a data-wa href="https://wa.me/5547992524497">(47) 99252-4497</a>
       <a href="mailto:contato@salesengenharia.com">contato@salesengenharia.com</a>
     </nav>
@@ -544,13 +630,40 @@ footer a:hover{color:#fff}
 <script>
 {
 const PHONE='5547992524497';
-const HELLO='Olá! Vim pelo site da Sales Engenharia e gostaria de um orçamento.';
+const AREA={infra:'de infraestrutura',edif:'de edificações'};
 const waUrl=t=>'https://wa.me/'+PHONE+'?text='+encodeURIComponent(t);
-for(const a of document.querySelectorAll('[data-wa]')){a.href=waUrl(HELLO);a.target='_blank';a.rel='noopener'}
+const hello=k=>'Olá! Vim pelo site da Sales Engenharia e gostaria de um orçamento '+AREA[k]+'.';
+const setWa=k=>{for(const a of document.querySelectorAll('[data-wa]')){a.href=waUrl(hello(k));a.target='_blank';a.rel='noopener'}};
 document.getElementById('ano').textContent=new Date().getFullYear();
 const menu=document.getElementById('menu'),nav=document.getElementById('nav');
 menu.addEventListener('click',()=>{const o=nav.classList.toggle('open');menu.setAttribute('aria-expanded',o);menu.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')});
 nav.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}});
+
+/* abas */
+const tabs=[...document.querySelectorAll('[role=tab]')];
+const panels={infra:document.getElementById('infraestrutura'),edif:document.getElementById('edificacoes')};
+const sel=document.getElementById('servico');let selTouched=false;sel.addEventListener('change',()=>selTouched=true);
+const navServ=document.getElementById('navServ');
+function show(k,opts={}){
+  tabs.forEach(t=>{const on=t.dataset.tab===k;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1});
+  for(const [key,p] of Object.entries(panels))p.hidden=key!==k;
+  document.body.dataset.tab=k;
+  navServ.href=k==='edif'?'#edif-servicos':'#infra-servicos';
+  setWa(k);
+  if(!selTouched)sel.value=k==='edif'?'Projeto arquitetônico':'Projeto de terraplenagem';
+  if(opts.hash)history.replaceState(null,'',k==='edif'?'#edificacoes':'#infraestrutura');
+  if(opts.top)window.scrollTo({top:0,behavior:'auto'});
+  document.dispatchEvent(new CustomEvent('aba',{detail:k}));
+}
+tabs.forEach((t,i)=>{
+  t.addEventListener('click',()=>show(t.dataset.tab,{hash:true,top:true}));
+  t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];n.focus();n.click()}});
+});
+const fromHash=()=>{const h=location.hash;if(h==='#edificacoes'||h.startsWith('#edif'))return 'edif';if(h==='#infraestrutura'||h.startsWith('#infra'))return 'infra';return null};
+window.addEventListener('hashchange',()=>{const k=fromHash();if(k&&k!==document.body.dataset.tab){show(k,{top:location.hash==='#infraestrutura'||location.hash==='#edificacoes'});}});
+show(fromHash()||'infra',{top:false});
+if(location.hash==='#infraestrutura'||location.hash==='#edificacoes')window.scrollTo(0,0);
+
 const form=document.getElementById('form'),sent=document.getElementById('sent');
 form.addEventListener('submit',e=>{
   e.preventDefault();
@@ -569,45 +682,65 @@ form.addEventListener('submit',e=>{
 <script type="module">
 import {heroScene,houseScene} from './cena.js';
 {
-const STAGE_TXT=[
-  ['Terreno natural','Levantamento topográfico e modelo digital do terreno.'],
-  ['Terraplenagem','Plataformas projetadas com corte e aterro equilibrados.'],
-  ['Contenções','Cortina atirantada no corte alto e muro de arrimo entre as plataformas.'],
-  ['Drenagem e pavimentação','Canaletas, bocas de lobo, pavimento intertravado e asfalto.'],
-  ['Edificação','Estrutura e arquitetura do galpão e do prédio.']
-];
-const stage=document.getElementById('stage'),player=document.getElementById('player');
-const chips=[...document.querySelectorAll('#chips button')],capT=document.getElementById('capT'),capD=document.getElementById('capD'),legend=document.getElementById('legend');
-const pp=document.getElementById('pp'),ppIcon=document.getElementById('ppIcon');
 const PAUSE='<path d="M7 5h3v14H7zM14 5h3v14h-3z"/>',PLAY='<path d="M8 5v14l11-7z"/>';
-const setPP=p=>{ppIcon.innerHTML=p?PAUSE:PLAY;pp.setAttribute('aria-label',p?'Pausar animação':'Reproduzir animação')};
-let h=null;
-try{
-  h=heroScene({canvas:document.getElementById('cena'),host:stage,
-    onReady:()=>stage.classList.add('ready'),
-    onPlay:setPP,
-    onStage:(s,p,changed)=>{
-      chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
-      if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===1||s===2)}
-    }});
-}catch(e){h=null}
-if(h){
+let infraOn=false,edifOn=false;
+function initInfra(){
+  if(infraOn)return;infraOn=true;
+  const STAGE_TXT=[
+    ['Terreno natural','Levantamento topográfico e modelo digital do terreno.'],
+    ['Terraplenagem','Plataformas projetadas com corte e aterro equilibrados.'],
+    ['Contenções','Cortina atirantada no corte alto e muro de arrimo entre as plataformas.'],
+    ['Drenagem e pavimentação','Canaletas, bocas de lobo, pavimento intertravado e asfalto.'],
+    ['Edificação','Estrutura e arquitetura do galpão e do prédio.']
+  ];
+  const stage=document.getElementById('stage'),player=document.getElementById('player');
+  const chips=[...document.querySelectorAll('#chips button')],capT=document.getElementById('capT'),capD=document.getElementById('capD'),legend=document.getElementById('legend');
+  const pp=document.getElementById('pp'),ppIcon=document.getElementById('ppIcon');
+  const setPP=p=>{ppIcon.innerHTML=p?PAUSE:PLAY;pp.setAttribute('aria-label',p?'Pausar animação':'Reproduzir animação')};
+  let h=null;
+  try{
+    h=heroScene({canvas:document.getElementById('cena'),host:stage,onReady:()=>stage.classList.add('ready'),onPlay:setPP,
+      onStage:(s,p,changed)=>{
+        chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
+        if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===1||s===2)}
+      }});
+  }catch(e){h=null}
+  if(!h)return;
   player.hidden=false;
-  if(h.reduce){pp.hidden=true}
+  if(h.reduce)pp.hidden=true;
   pp.addEventListener('click',()=>setPP(h.toggle()));
   chips.forEach(c=>c.addEventListener('click',()=>h.seek(+c.dataset.s)));
 }
-const house=document.getElementById('house'),cap=document.getElementById('houseCap');
-const btns=[...document.querySelectorAll('#disc button')];
-let auto=true,idx=0,timer=0,hs=null;
-const pick=(m,user)=>{btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)));const b=btns.find(b=>b.dataset.m===m);cap.textContent=b.querySelector('b').textContent;hs&&hs.setMode(m);if(user){auto=false;clearInterval(timer)}};
-try{hs=houseScene({canvas:document.getElementById('casa'),host:house,onReady:()=>house.classList.add('ready'),onInteract:()=>{auto=false;clearInterval(timer)}})}catch(e){hs=null}
-btns.forEach((b,i)=>{b.addEventListener('click',()=>{idx=i;pick(b.dataset.m,true)});b.addEventListener('focus',()=>{auto=false;clearInterval(timer)})});
-pick('arq');
-if(hs&&!hs.reduce){
-  const io=new IntersectionObserver(es=>{clearInterval(timer);if(es[0].isIntersecting&&auto)timer=setInterval(()=>{if(!auto)return;idx=(idx+1)%btns.length;pick(btns[idx].dataset.m)},3800)},{threshold:.3});
-  io.observe(house);
+function initEdif(){
+  if(edifOn)return;edifOn=true;
+  const TXT={arq:['Arquitetônico','Layout, fachadas e projeto legal para aprovação.'],str:['Estrutural','Fundações, pilares, vigas e lajes.'],ele:['Elétrico','Circuitos, quadros, iluminação e tomadas.'],hid:['Hidrossanitário','Água fria e quente, esgoto e águas pluviais.'],r3d:['3D e renderização','Maquete eletrônica e imagens realistas.'],int:['Design de interiores','Layout, marcenaria, iluminação e acabamentos.']};
+  const stage=document.getElementById('stageE'),player=document.getElementById('playerE'),list=document.getElementById('chipsE');
+  const chips=[...list.querySelectorAll('button')],capT=document.getElementById('capTE'),capD=document.getElementById('capDE');
+  const pp=document.getElementById('ppE'),ppIcon=document.getElementById('ppIconE');
+  let hs=null,auto=true,idx=0,timer=0;
+  try{hs=houseScene({canvas:document.getElementById('casa'),host:stage,shift:.2,onReady:()=>stage.classList.add('ready'),onInteract:()=>{}})}catch(e){hs=null}
+  if(!hs)return;
+  player.hidden=false;
+  const setPP=()=>{ppIcon.innerHTML=auto?PAUSE:PLAY;pp.setAttribute('aria-label',auto?'Pausar troca automática':'Retomar troca automática');list.classList.toggle('auto',auto)};
+  const pick=i=>{
+    idx=i;const m=chips[i].dataset.m;
+    chips.forEach((c,j)=>{const f=c.querySelector('.fill');f.style.transition='none';f.style.width=j<i?'100%':'0';c.classList.toggle('done',j<i);if(j===i)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
+    const f=chips[i].querySelector('.fill');
+    if(auto){requestAnimationFrame(()=>requestAnimationFrame(()=>{f.style.transition='';f.style.width='100%'}))}else f.style.width='100%';
+    capT.textContent=TXT[m][0];capD.textContent=TXT[m][1];hs.setMode(m);
+  };
+  const start=()=>{clearInterval(timer);if(auto&&!hs.reduce)timer=setInterval(()=>pick((idx+1)%chips.length),3900)};
+  const stop=()=>{auto=false;clearInterval(timer);setPP();pick(idx)};
+  chips.forEach((c,i)=>c.addEventListener('click',()=>{auto=false;clearInterval(timer);setPP();pick(i)}));
+  pp.addEventListener('click',()=>{if(auto)stop();else{auto=true;setPP();pick((idx+1)%chips.length);start()}});
+  stage.addEventListener('pointerdown',()=>{if(auto)stop()});
+  if(hs.reduce){auto=false;pp.hidden=true}
+  setPP();pick(0);
+  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting)start();else clearInterval(timer)},{threshold:.3});io.observe(stage);
 }
+const run=k=>k==='edif'?initEdif():initInfra();
+run(document.body.dataset.tab);
+document.addEventListener('aba',e=>run(e.detail));
 }
 </script>
 </body>
