@@ -18,7 +18,8 @@
 <meta property="og:image" content="https://salesengenharia.com/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="modulepreload" href="cena.js?v=5">
+<script type="importmap">{"imports":{"three":"./three.module.min.js","three/addons/":"./addons/"}}</script>
+<link rel="modulepreload" href="cena-real.js?v=6">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Sales Engenharia","url":"https://salesengenharia.com/","logo":"https://salesengenharia.com/icone.svg","image":"https://salesengenharia.com/og.jpg","telephone":"+55 47 99252-4497","email":"contato@salesengenharia.com","address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"BR"},"areaServed":[{"@type":"Country","name":"Brasil"}],"description":"Infraestrutura e edificações: projetos e gerenciamento para todo o Brasil, execução de obras de infraestrutura no Sul e design de interiores.","knowsAbout":["Terraplenagem","Contenções","Drenagem pluvial","Pavimentação","Geotecnia","Loteamentos","Projeto arquitetônico","Projeto estrutural","Projeto elétrico","Projeto hidrossanitário","Modelagem 3D e renderização","Design de interiores","Gerenciamento de obras"]}
 </script>
@@ -313,7 +314,7 @@ footer a:hover{color:#fff}
   <div class="hero-main">
     <div class="stage" id="stage">
       <img class="poster" src="hero-poster.jpg" alt="" aria-hidden="true">
-      <canvas id="cena" role="img" aria-label="Animação 3D em seis etapas: terreno natural, contenções com cortina atirantada e muro de arrimo, terraplenagem com corte e aterro, drenagem, pavimentação e a construção de um galpão e de um prédio."></canvas>
+      <canvas id="cena" role="img" aria-label="Animação 3D realista em seis etapas: terreno natural, contenções com cortina atirantada e muro de arrimo, terraplenagem com máquinas, drenagem, construção de um galpão e de um prédio e, por último, a pavimentação."></canvas>
     </div>
     <div class="wrap hero-copy">
       <div class="hero-text">
@@ -327,7 +328,7 @@ footer a:hover{color:#fff}
     </div>
     <div class="wrap player-wrap">
       <div class="player" id="player" hidden>
-        <div class="cap" aria-live="polite"><strong id="capT">Terreno natural</strong><span id="capD"></span><span class="legend" id="legend"><span><i style="background:#d4ac5e"></i>Corte</span><span><i style="background:var(--fill)"></i>Aterro</span></span></div>
+        <div class="cap" aria-live="polite"><strong id="capT">Terreno natural</strong><span id="capD"></span><span class="legend" id="legend"><span><i style="background:#a2522c"></i>Corte</span><span><i style="background:#b49167"></i>Aterro</span></span></div>
         <div class="bar">
           <button class="pp" id="pp" type="button" aria-label="Pausar animação"><svg viewBox="0 0 24 24" fill="currentColor" id="ppIcon"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
           <ol class="chips six" id="chips">
@@ -335,8 +336,8 @@ footer a:hover{color:#fff}
             <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Contenções</span><span class="num" aria-hidden="true">2</span></button></li>
             <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">3</span></button></li>
             <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Drenagem</span><span class="num" aria-hidden="true">4</span></button></li>
-            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Pavimentação</span><span class="num" aria-hidden="true">5</span></button></li>
-            <li><button type="button" data-s="5"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">6</span></button></li>
+            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">5</span></button></li>
+            <li><button type="button" data-s="5"><span class="fill"></span><span class="lbl">Pavimentação</span><span class="num" aria-hidden="true">6</span></button></li>
           </ol>
         </div>
       </div>
@@ -585,7 +586,7 @@ footer a:hover{color:#fff}
         <li><b>Infraestrutura</b><span>Especialização em engenharia geotécnica e em engenharia de pavimentação</span></li>
         <li><b>Edificações</b><span>Projetos arquitetônico, estrutural, elétrico e hidrossanitário; especialistas em design de interiores</span></li>
         <li><b>Gestão</b><span>Certificação PMP em gerenciamento</span></li>
-        <li><b>Ferramentas</b><span>AutoCAD Civil 3D para terreno, greides, redes e volumes; modelagem 3D e renderização</span></li>
+        <li><b>Ferramentas</b><span>AutoCAD, Civil 3D, Revit, GEO5, Navisworks, 3ds Max, V-Ray, CYPECAD, Photoshop e MS Project</span></li>
         <li><b>Responsabilidade</b><span>ART emitida no CREA em todos os projetos e obras</span></li>
       </ul>
     </div>
@@ -708,19 +709,19 @@ form.addEventListener('submit',e=>{
 }
 </script>
 <script type="module">
-import {heroScene,houseScene} from './cena.js?v=5';
+import {heroScene,houseScene} from './cena-real.js?v=6';
 {
 const PAUSE='<path d="M7 5h3v14H7zM14 5h3v14h-3z"/>',PLAY='<path d="M8 5v14l11-7z"/>';
 let infraOn=false,edifOn=false;
 function initInfra(){
   if(infraOn)return;infraOn=true;
   const STAGE_TXT=[
-    ['Terreno natural','Levantamento topográfico e modelo digital do terreno.'],
+    ['Terreno natural','Levantamento topográfico do terreno e da vegetação.'],
     ['Contenções','Cortina atirantada e muro de arrimo executados antes da escavação.'],
-    ['Terraplenagem','Corte e aterro até as plataformas projetadas.'],
+    ['Terraplenagem','Escavadeira, caminhões e trator levando o terreno às plataformas.'],
     ['Drenagem','Tubos, canaletas e bocas de lobo instalados antes do pavimento.'],
-    ['Pavimentação','Pavimento intertravado no pátio e asfalto no estacionamento.'],
-    ['Edificação','Estrutura e arquitetura do galpão e do prédio.']
+    ['Edificação','Estrutura e fechamento do galpão e do prédio.'],
+    ['Pavimentação','Asfalto e pavimento intertravado por último, com a obra pronta.']
   ];
   const stage=document.getElementById('stage'),player=document.getElementById('player');
   const chips=[...document.querySelectorAll('#chips button')],capT=document.getElementById('capT'),capD=document.getElementById('capD'),legend=document.getElementById('legend');
@@ -728,13 +729,15 @@ function initInfra(){
   const setPP=p=>{ppIcon.innerHTML=p?PAUSE:PLAY;pp.setAttribute('aria-label',p?'Pausar animação':'Reproduzir animação')};
   let h=null;
   try{
-    h=heroScene({canvas:document.getElementById('cena'),host:stage,onReady:()=>stage.classList.add('ready'),onPlay:setPP,
+    const qs=new URLSearchParams(location.search);
+    h=heroScene({canvas:document.getElementById('cena'),host:stage,startT:+(qs.get('t')||0),paused:qs.has('t'),onReady:()=>stage.classList.add('ready'),onPlay:setPP,
       onStage:(s,p,changed)=>{
         chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
         if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===2)}
       }});
   }catch(e){h=null}
   if(!h)return;
+  if(new URLSearchParams(location.search).has('t'))window.__h=h;
   player.hidden=false;
   pp.addEventListener('click',()=>setPP(h.toggle()));
   chips.forEach(c=>c.addEventListener('click',()=>h.seek(+c.dataset.s)));
@@ -742,40 +745,47 @@ function initInfra(){
 function initEdif(){
   if(edifOn)return;edifOn=true;
   const TXT={arq:['Arquitetônico','Layout, fachadas e projeto legal para aprovação.'],str:['Estrutural','Fundações, pilares, vigas e lajes.'],ele:['Elétrico','Circuitos, quadros, iluminação e tomadas.'],hid:['Hidrossanitário','Água fria e quente, esgoto e águas pluviais.'],r3d:['3D e renderização','Maquete eletrônica e imagens realistas.'],int:['Design de interiores','Layout, marcenaria, iluminação e acabamentos.']};
+  const canHover=matchMedia('(hover: hover)').matches;
+  /* troca automática; para numa disciplina só enquanto o mouse está sobre o texto dela */
+  function cycler(els,show,box){
+    let i=0,hold=null,timer=0,tt=0,paused=false,vis=false;
+    const go=k=>{i=k;show(k,hold===null&&!paused)};
+    const start=()=>{clearInterval(timer);if(vis&&!paused)timer=setInterval(()=>{if(hold===null)go((i+1)%els.length)},3900)};
+    els.forEach((el,k)=>{
+      el.addEventListener('mouseenter',()=>{hold=k;go(k)});
+      el.addEventListener('mouseleave',()=>{if(hold===k){hold=null;go(k);start()}});
+      el.addEventListener('focusin',()=>{hold=k;go(k)});
+      el.addEventListener('focusout',()=>{hold=null;start()});
+      el.addEventListener('click',()=>{if(canHover)return;hold=k;go(k);clearTimeout(tt);tt=setTimeout(()=>{hold=null;start()},6000)});
+    });
+    new IntersectionObserver(es=>{vis=es[0].isIntersecting;vis?start():clearInterval(timer)},{threshold:.2}).observe(box);
+    go(0);
+    return {toggle(){paused=!paused;paused?clearInterval(timer):start();go(i);return !paused}};
+  }
+  /* abertura */
   const stage=document.getElementById('stageE'),player=document.getElementById('playerE'),list=document.getElementById('chipsE');
   const chips=[...list.querySelectorAll('button')],capT=document.getElementById('capTE'),capD=document.getElementById('capDE');
   const pp=document.getElementById('ppE'),ppIcon=document.getElementById('ppIconE');
-  let hs=null,auto=true,idx=0,timer=0;
-  try{hs=houseScene({canvas:document.getElementById('casa'),host:stage,shift:.2,onReady:()=>stage.classList.add('ready'),onInteract:()=>{}})}catch(e){hs=null}
-  if(!hs)return;
-  player.hidden=false;
-  const setPP=()=>{ppIcon.innerHTML=auto?PAUSE:PLAY;pp.setAttribute('aria-label',auto?'Pausar troca automática':'Retomar troca automática');list.classList.toggle('auto',auto)};
-  const pick=i=>{
-    idx=i;const m=chips[i].dataset.m;
-    chips.forEach((c,j)=>{const f=c.querySelector('.fill');f.style.transition='none';f.style.width=j<i?'100%':'0';c.classList.toggle('done',j<i);if(j===i)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
-    const f=chips[i].querySelector('.fill');
-    if(auto){requestAnimationFrame(()=>requestAnimationFrame(()=>{f.style.transition='';f.style.width='100%'}))}else f.style.width='100%';
-    capT.textContent=TXT[m][0];capD.textContent=TXT[m][1];hs.setMode(m);
-  };
-  const start=()=>{clearInterval(timer);if(auto)timer=setInterval(()=>pick((idx+1)%chips.length),3900)};
-  const stop=()=>{auto=false;clearInterval(timer);setPP();pick(idx)};
-  chips.forEach((c,i)=>c.addEventListener('click',()=>{auto=false;clearInterval(timer);setPP();pick(i)}));
-  pp.addEventListener('click',()=>{if(auto)stop();else{auto=true;setPP();pick((idx+1)%chips.length);start()}});
-  stage.addEventListener('pointerdown',()=>{if(auto)stop()});
-  setPP();pick(0);
-  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting)start();else clearInterval(timer)},{threshold:.3});io.observe(stage);
-  /* modelo que acompanha a rolagem da lista de serviços */
+  let hs=null,fillTok=0;
+  try{hs=houseScene({canvas:document.getElementById('casa'),host:stage,shift:.2,onReady:()=>stage.classList.add('ready')})}catch(e){hs=null}
+  if(hs){
+    player.hidden=false;
+    const c1=cycler(chips,(k,anim)=>{
+      const m=chips[k].dataset.m;
+      chips.forEach((c,j)=>{const f=c.querySelector('.fill');f.style.transition='none';f.style.width=j<k?'100%':'0';c.classList.toggle('done',j<k);if(j===k)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
+      const f=chips[k].querySelector('.fill');
+      const tok=++fillTok;if(anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{if(tok!==fillTok)return;f.style.transition='width 3.9s linear';f.style.width='100%'}));else f.style.width='100%';
+      capT.textContent=TXT[m][0];capD.textContent=TXT[m][1];hs.setMode(m);
+    },stage);
+    pp.addEventListener('click',()=>{const on=c1.toggle();ppIcon.innerHTML=on?PAUSE:PLAY;pp.setAttribute('aria-label',on?'Pausar troca automática':'Retomar troca automática')});
+  }
+  /* modelo ao lado da lista de serviços */
   const box=document.getElementById('edifModel'),capM=document.getElementById('modelCap');
   let h2=null;
   try{h2=houseScene({canvas:document.getElementById('casa2'),host:box,onReady:()=>box.classList.add('ready')})}catch(e){h2=null}
   if(!h2)return;
   const svcs=[...document.querySelectorAll('#edif-servicos .svc[data-m]')];
-  let cur=null;
-  const setM=el=>{if(el===cur)return;cur=el;svcs.forEach(s=>s.classList.toggle('on',s===el));h2.setMode(el.dataset.m);capM.innerHTML='';const b=document.createElement('b');b.textContent=el.querySelector('h3').textContent;capM.append(b)};
-  const narrow=matchMedia('(max-width:900px)').matches;
-  const io2=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting)setM(e.target)},{rootMargin:narrow?'-58% 0px -32% 0px':'-42% 0px -48% 0px'});
-  svcs.forEach(s=>{io2.observe(s);s.addEventListener('mouseenter',()=>setM(s))});
-  setM(svcs[0]);
+  cycler(svcs,k=>{const el=svcs[k];svcs.forEach(s=>s.classList.toggle('on',s===el));h2.setMode(el.dataset.m);capM.innerHTML='';const b=document.createElement('b');b.textContent=el.querySelector('h3').textContent;capM.append(b)},box);
 }
 const run=k=>k==='edif'?initEdif():initInfra();
 run(document.body.dataset.tab);
