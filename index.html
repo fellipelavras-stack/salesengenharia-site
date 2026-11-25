@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://salesengenharia.com/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="modulepreload" href="cena.js?v=4">
+<link rel="modulepreload" href="cena.js?v=5">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Sales Engenharia","url":"https://salesengenharia.com/","logo":"https://salesengenharia.com/icone.svg","image":"https://salesengenharia.com/og.jpg","telephone":"+55 47 99252-4497","email":"contato@salesengenharia.com","address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"BR"},"areaServed":[{"@type":"Country","name":"Brasil"}],"description":"Infraestrutura e edificações: projetos e gerenciamento para todo o Brasil, execução de obras de infraestrutura no Sul e design de interiores.","knowsAbout":["Terraplenagem","Contenções","Drenagem pluvial","Pavimentação","Geotecnia","Loteamentos","Projeto arquitetônico","Projeto estrutural","Projeto elétrico","Projeto hidrossanitário","Modelagem 3D e renderização","Design de interiores","Gerenciamento de obras"]}
 </script>
@@ -313,7 +313,7 @@ footer a:hover{color:#fff}
   <div class="hero-main">
     <div class="stage" id="stage">
       <img class="poster" src="hero-poster.jpg" alt="" aria-hidden="true">
-      <canvas id="cena" role="img" aria-label="Animação 3D em cinco etapas: terreno natural, terraplenagem com corte e aterro, contenções com cortina atirantada e muro de arrimo, drenagem e pavimentação, e a construção de um galpão e de um prédio."></canvas>
+      <canvas id="cena" role="img" aria-label="Animação 3D em seis etapas: terreno natural, contenções com cortina atirantada e muro de arrimo, terraplenagem com corte e aterro, drenagem, pavimentação e a construção de um galpão e de um prédio."></canvas>
     </div>
     <div class="wrap hero-copy">
       <div class="hero-text">
@@ -330,12 +330,13 @@ footer a:hover{color:#fff}
         <div class="cap" aria-live="polite"><strong id="capT">Terreno natural</strong><span id="capD"></span><span class="legend" id="legend"><span><i style="background:#d4ac5e"></i>Corte</span><span><i style="background:var(--fill)"></i>Aterro</span></span></div>
         <div class="bar">
           <button class="pp" id="pp" type="button" aria-label="Pausar animação"><svg viewBox="0 0 24 24" fill="currentColor" id="ppIcon"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
-          <ol class="chips" id="chips">
+          <ol class="chips six" id="chips">
             <li><button type="button" data-s="0"><span class="fill"></span><span class="lbl">Terreno</span><span class="num" aria-hidden="true">1</span></button></li>
-            <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">2</span></button></li>
-            <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Contenções</span><span class="num" aria-hidden="true">3</span></button></li>
+            <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Contenções</span><span class="num" aria-hidden="true">2</span></button></li>
+            <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">3</span></button></li>
             <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Drenagem</span><span class="num" aria-hidden="true">4</span></button></li>
-            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">5</span></button></li>
+            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Pavimentação</span><span class="num" aria-hidden="true">5</span></button></li>
+            <li><button type="button" data-s="5"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">6</span></button></li>
           </ol>
         </div>
       </div>
@@ -707,7 +708,7 @@ form.addEventListener('submit',e=>{
 }
 </script>
 <script type="module">
-import {heroScene,houseScene} from './cena.js?v=4';
+import {heroScene,houseScene} from './cena.js?v=5';
 {
 const PAUSE='<path d="M7 5h3v14H7zM14 5h3v14h-3z"/>',PLAY='<path d="M8 5v14l11-7z"/>';
 let infraOn=false,edifOn=false;
@@ -715,9 +716,10 @@ function initInfra(){
   if(infraOn)return;infraOn=true;
   const STAGE_TXT=[
     ['Terreno natural','Levantamento topográfico e modelo digital do terreno.'],
-    ['Terraplenagem','Plataformas projetadas com corte e aterro equilibrados.'],
-    ['Contenções','Cortina atirantada no corte alto e muro de arrimo entre as plataformas.'],
-    ['Drenagem e pavimentação','Canaletas, bocas de lobo, pavimento intertravado e asfalto.'],
+    ['Contenções','Cortina atirantada e muro de arrimo executados antes da escavação.'],
+    ['Terraplenagem','Corte e aterro até as plataformas projetadas.'],
+    ['Drenagem','Tubos, canaletas e bocas de lobo instalados antes do pavimento.'],
+    ['Pavimentação','Pavimento intertravado no pátio e asfalto no estacionamento.'],
     ['Edificação','Estrutura e arquitetura do galpão e do prédio.']
   ];
   const stage=document.getElementById('stage'),player=document.getElementById('player');
@@ -729,7 +731,7 @@ function initInfra(){
     h=heroScene({canvas:document.getElementById('cena'),host:stage,onReady:()=>stage.classList.add('ready'),onPlay:setPP,
       onStage:(s,p,changed)=>{
         chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
-        if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===1||s===2)}
+        if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===2)}
       }});
   }catch(e){h=null}
   if(!h)return;

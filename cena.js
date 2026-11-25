@@ -133,7 +133,8 @@ export function heroScene(o) {
   tgeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   tgeo.setAttribute('color', new THREE.BufferAttribute(clr, 3));
   tgeo.setIndex(new THREE.BufferAttribute(index, 1));
-  const terrain = new THREE.Mesh(tgeo, std(0xffffff, { vertexColors: true, roughness: .95 }));
+  const terrainMat = std(0xffffff, { vertexColors: true, roughness: .95 });
+  const terrain = new THREE.Mesh(tgeo, terrainMat);
   terrain.receiveShadow = true; terrain.castShadow = true; scene.add(terrain);
 
   const cLow = col(0x6d8a5c), cHigh = col(0xa9b083), cCut = col(0xd4ac5e), cFill = col(0x8fa8e0), cGrass = col(0x7f9d62), tmp = new THREE.Color();
@@ -155,7 +156,8 @@ export function heroScene(o) {
   sgeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
   sgeo.setAttribute('color', new THREE.BufferAttribute(sCol, 3));
   sgeo.setIndex(sIdx);
-  const skirt = new THREE.Mesh(sgeo, std(0xffffff, { vertexColors: true, roughness: 1, side: THREE.DoubleSide }));
+  const skirtMat = std(0xffffff, { vertexColors: true, roughness: 1, side: THREE.DoubleSide });
+  const skirt = new THREE.Mesh(sgeo, skirtMat);
   skirt.receiveShadow = true; scene.add(skirt);
   const updateSkirt = () => {
     perim.forEach((k, p) => {
@@ -253,8 +255,10 @@ export function heroScene(o) {
     }
   }, [6, 10]);
   const paverW = (.49 - U0) * S - .25, paverD = (V1 - V0) * S - .3;
-  const paver = box(paverW, .05, paverD, fm(std(0xffffff, { map: paverTex, roughness: .9 })), ((U0 + .49) / 2 - .5) * S - .02, zA + .02, (V0 + V1 - 1) / 2 * S);
-  paver.castShadow = false; infra.add(paver);
+  const pavePlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), -9);
+  const pave = new THREE.Group(); scene.add(pave);
+  const paver = box(paverW, .05, paverD, std(0xffffff, { map: paverTex, roughness: .9, clippingPlanes: [pavePlane] }), ((U0 + .49) / 2 - .5) * S - .02, zA + .02, (V0 + V1 - 1) / 2 * S);
+  paver.castShadow = false; pave.add(paver);
   const asphaltTex = canvasTex(512, 1024, (g, w, h) => {
     g.fillStyle = '#2d313c'; g.fillRect(0, 0, w, h);
     for (let n = 0; n < 9000; n++) { const v = 40 + Math.random() * 25; g.fillStyle = `rgb(${v},${v + 2},${v + 8})`; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
@@ -264,8 +268,21 @@ export function heroScene(o) {
     g.strokeStyle = '#C7AB69'; g.lineWidth = 6; g.strokeRect(8, 8, w - 16, h - 16);
   });
   const asphW = (U1 - .51) * S - .2, asphD = (V1 - V0) * S - .3;
-  const asphalt = box(asphW, .05, asphD, fm(std(0xffffff, { map: asphaltTex, roughness: .7 })), ((U1 + .51) / 2 - .5) * S, zB + .02, (V0 + V1 - 1) / 2 * S);
-  asphalt.castShadow = false; infra.add(asphalt);
+  const asphalt = box(asphW, .05, asphD, std(0xffffff, { map: asphaltTex, roughness: .7, clippingPlanes: [pavePlane] }), ((U1 + .51) / 2 - .5) * S, zB + .02, (V0 + V1 - 1) / 2 * S);
+  asphalt.castShadow = false; pave.add(asphalt);
+  /* rede de drenagem: valas e tubos assentados antes do pavimento */
+  const pipeMat = fm(std(0x8fa3c9, { roughness: .5, emissive: 0x16306b, emissiveIntensity: .35 })), trenchMat = fm(std(0x5a4632, { roughness: 1 }));
+  const pipes = [];
+  const pipe = (x0, z0, x1, z1, y) => {
+    const L = Math.hypot(x1 - x0, z1 - z0), g = new THREE.CylinderGeometry(.04, .04, L, 10);
+    g.rotateX(Math.PI / 2); g.translate(0, 0, L / 2);
+    const m = new THREE.Mesh(g, pipeMat); m.position.set(x0, y - .005, z0); m.rotation.y = Math.atan2(x1 - x0, z1 - z0); m.castShadow = true;
+    const t = new THREE.Mesh(new THREE.BoxGeometry(.15, .01, L).translate(0, 0, L / 2), trenchMat); t.position.set(x0, y + .002, z0); t.rotation.y = m.rotation.y;
+    infra.add(m, t); pipes.push(m, t);
+  };
+  pipe(-.35, -2.7, -.35, 3.05, zA); pipe(.25, -2.7, .25, 3.05, zB);
+  pipe(-3.3, 1.0, -.35, 1.0, zA); pipe(3.4, -.6, .25, -.6, zB); pipe(3.4, 1.9, .25, 1.9, zB);
+  pipe(-3.3, -1.4, -.35, -1.4, zA);
   const channelMat = fm(std(0x9aa0ad, { roughness: .7 })), waterMat = fm(std(0x3d8bff, { emissive: 0x1d5bd6, emissiveIntensity: .8, roughness: .2 }));
   const chan = (x0, x1, y, z) => { const L = x1 - x0, cx = (x0 + x1) / 2; infra.add(box(L, .05, .2, channelMat, cx, y + .02, z), box(L, .02, .09, waterMat, cx, y + .05, z)); };
   chan((U0 - .5) * S + .05, -.15, zA, zW + .16); chan(.08, (U1 - .5) * S - .05, zB, zW + .16);
@@ -334,27 +351,40 @@ export function heroScene(o) {
 
   /* ---------- linha do tempo ---------- */
   const STAGES = [
-    { t: 0, end: 2.6 }, { t: 2.6, end: 6.6 }, { t: 6.6, end: 10.2 }, { t: 10.2, end: 13.6 }, { t: 13.6, end: 19.5 }
+    { t: 0, end: 2.4 }, { t: 2.4, end: 6.2 }, { t: 6.2, end: 10 }, { t: 10, end: 13 }, { t: 13, end: 16.2 }, { t: 16.2, end: 22 }
   ];
-  const END = 19.5, HOLD = 6;
+  const END = 22, HOLD = 6;
   let T = 0, playing = true, stageNow = -1;
+  [terrainMat, skirtMat].forEach(m => { m.transparent = true; });
+  const xray = v => {
+    [terrainMat, skirtMat].forEach(m => { m.opacity = 1 - .72 * v; m.depthWrite = v < .35; });
+    terrain.castShadow = v < .01;
+  };
   function apply(T) {
-    const e1 = ease((T - 2.6) / 3.6), e2 = ease((T - 6.8) / 3);
-    const green = ease((T - 10.2) / 3);
-    setTerrain(e1, e2, green);
-    oldTrees.forEach(t => { if (t.userData.removed) t.scale.setScalar(Math.max(.0001, 1 - ease((T - 2.6) / .7)) * (t.userData.s0 || (t.userData.s0 = t.scale.x))); });
-    const w = ease((T - 6.9) / 2.9);
+    /* 1: contenções executadas antes da escavação (solo em transparência) */
+    xray(ease((T - 2.4) / .6) * (1 - ease((T - 5.6) / .6)));
+    const w = ease((T - 2.9) / 2.7);
     wallPlane.constant = lerp(zA - .3, 3.4, w);
-    const vis = T > 6.9;
-    cortina.visible = plates.visible = heads.visible = muro.visible = cap.visible = vis;
-    const fi = ease((T - 10.3) / 2.2);
+    cortina.visible = plates.visible = heads.visible = muro.visible = cap.visible = T > 2.8;
+    /* 2: terraplenagem até as plataformas */
+    const e1 = ease((T - 6.4) / 3.4), green = ease((T - 10.2) / 2.6);
+    setTerrain(e1, 1, green);
+    oldTrees.forEach(t => { if (t.userData.removed) t.scale.setScalar(Math.max(.0001, 1 - ease((T - 6.2) / .7)) * (t.userData.s0 || (t.userData.s0 = t.scale.x))); });
+    /* 3: drenagem */
+    const fi = ease((T - 10.1) / 1.6);
     fadeMats.forEach(m => { m.opacity = fi; m.transparent = fi < .999; m.depthWrite = fi > .5; });
-    infra.visible = fi > .001; infra.position.y = (1 - fi) * .25;
-    const sb = ease((T - 13.7) / 2.6), sc = ease((T - 15.6) / 3.2);
+    infra.visible = fi > .001; infra.position.y = (1 - fi) * .2;
+    const pl = ease((T - 10.4) / 2.2); pipes.forEach(p => { p.scale.z = Math.max(.001, pl); });
+    /* 4: pavimentação avançando pelo terreno */
+    const pv = ease((T - 13.2) / 2.6);
+    pavePlane.constant = lerp((V0 - .5) * S - .1, (V1 - .5) * S + .1, pv);
+    pave.visible = pv > .001;
+    /* 5: edificação */
+    const sb = ease((T - 16.3) / 2.5), sc = ease((T - 18.2) / 3);
     bPlane.constant = lerp(zA - .05, top4 + .1, sb); cPlane.constant = lerp(zA - .05, top4 + .1, sc);
-    bld.visible = T > 13.7;
-    const ct = ease((T - 17.6) / 1.4); cars.children.forEach((c, n) => c.scale.setScalar(Math.max(.0001, ease((T - 17.4 - n * .25) / 1)))); cars.visible = ct > 0 || T > 17.4;
-    newTrees.forEach((t, n) => t.scale.setScalar(Math.max(.0001, t.userData.s * ease((T - 17 - n * .12) / 1.2))));
+    bld.visible = T > 16.3;
+    cars.children.forEach((c, n) => c.scale.setScalar(Math.max(.0001, ease((T - 20 - n * .25) / 1)))); cars.visible = T > 20;
+    newTrees.forEach((t, n) => t.scale.setScalar(Math.max(.0001, t.userData.s * ease((T - 19.6 - n * .12) / 1.2))));
     gmat.opacity = lerp(.32, .07, ease((T - 10.2) / 2));
     let s = STAGES.length - 1; while (s > 0 && T < STAGES[s].t) s--;
     const prog = clamp((T - STAGES[s].t) / (STAGES[s].end - STAGES[s].t));
