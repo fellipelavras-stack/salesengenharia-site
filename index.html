@@ -163,6 +163,28 @@ p{margin:0}
 .svc .get{grid-column:2;font-size:14.5px;color:var(--muted);line-height:1.5}
 .svc .get b{color:var(--navy);font-weight:600}
 .services.edif{background:#F7F8FB}
+.services .wrap.edif-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,56px);align-items:start}
+.edif-grid .edif-model{grid-column:2;grid-row:1}
+.edif-grid .edif-list{grid-column:1;grid-row:1}
+.edif-grid .services-head{position:static;margin-bottom:28px}
+.edif-model{position:sticky;top:110px;height:min(520px,calc(100vh - 150px));border-radius:16px;overflow:hidden;background:radial-gradient(90% 80% at 50% 45%,#2c3a70 0%,#1d2754 60%,#161e44 100%)}
+.edif-model canvas,.edif-model .poster{position:absolute;inset:0;width:100%;height:100%;max-width:none}
+.edif-model .poster{object-fit:cover;transition:opacity .6s}
+.edif-model.ready .poster{opacity:0;pointer-events:none}
+.edif-model canvas{cursor:grab;touch-action:pan-y}
+.model-cap{position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(14,20,48,.72);color:#fff;padding:8px 12px;border-radius:8px;font-size:15px}
+.model-cap b{color:var(--gold);font-weight:600}
+.edif .svc{padding-left:16px;margin-left:-19px;border-left:3px solid transparent;transition:border-color .3s,background .3s}
+.edif .svc.on{border-left-color:var(--gold);background:linear-gradient(90deg,rgba(199,171,105,.14),rgba(199,171,105,0) 75%)}
+@media (max-width:1100px){.edif .svc{grid-template-columns:minmax(0,1fr)}.edif .svc .get{grid-column:1}}
+@media (max-width:900px){
+  .services .wrap.edif-grid{grid-template-columns:minmax(0,1fr)}
+  .edif-grid .edif-model,.edif-grid .edif-list{grid-column:1;grid-row:auto}
+  .edif-model{top:124px;height:38vh;min-height:250px;z-index:3;margin:0 calc(-1 * var(--gut));border-radius:0;box-shadow:0 10px 24px rgba(10,14,36,.35)}
+  .edif .svc{margin-left:-11px;padding-left:8px}
+}
+@media (prefers-reduced-motion:reduce){.edif .svc,.edif-model .poster{transition:none}}
+
 @media (max-width:860px){
   .services .wrap{grid-template-columns:minmax(0,1fr)}
   .services-head{position:static}
@@ -322,7 +344,7 @@ footer a:hover{color:#fff}
   <div class="creds-band">
     <ul class="wrap creds">
       <li><b>Geotecnia e pavimentação</b>Especialização em engenharia geotécnica e de pavimentação</li>
-      <li><b>Certificação PMP</b>Gerenciamento de projetos e obras</li>
+      <li><b>Certificação PMP</b>Gerenciamento de obras</li>
       <li><b>AutoCAD Civil 3D</b>Modelagem de terreno, greides, redes e volumes</li>
       <li><b>ART em todo serviço</b>Responsabilidade técnica registrada no CREA</li>
     </ul>
@@ -374,7 +396,7 @@ footer a:hover{color:#fff}
         </article>
         <article class="svc">
           <h3>Gerenciamento de obras</h3>
-          <p>Planejamento, orçamento, cronograma, medições e controle de contratos, com método de gestão de projetos PMP.</p>
+          <p>Planejamento, orçamento, cronograma, medições e controle de contratos, com método PMP de gerenciamento.</p>
           <p class="get"><b>Você recebe:</b> cronograma físico-financeiro, relatórios de medição e controle de custos.</p>
         </article>
       </div>
@@ -442,7 +464,13 @@ footer a:hover{color:#fff}
 </section>
 
 <section class="band services edif" id="edif-servicos">
-  <div class="wrap">
+  <div class="wrap edif-grid">
+    <div class="edif-model" id="edifModel">
+      <img class="poster" src="casa2-poster.jpg" alt="" aria-hidden="true">
+      <canvas id="casa2" role="img" aria-label="Modelo 3D da casa que muda conforme o serviço em destaque na lista."></canvas>
+      <p class="model-cap" id="modelCap" aria-live="polite"><b>Arquitetônico</b></p>
+    </div>
+    <div class="edif-list">
     <div class="services-head">
       <h2>Serviços de edificações</h2>
       <p>Do primeiro estudo à obra pronta. Todos os projetos são feitos pela mesma equipe e entregues em DWG e PDF, com memorial e responsabilidade técnica.</p>
@@ -451,32 +479,32 @@ footer a:hover{color:#fff}
     <div>
       <div class="group">
         <p class="group-title"><strong>Projetos</strong><span>Para todo o Brasil</span></p>
-        <article class="svc">
+        <article class="svc" data-m="arq">
           <h3>Arquitetônico</h3>
           <p>Estudo de layout, anteprojeto, projeto legal para aprovação na prefeitura e executivo detalhado.</p>
           <p class="get"><b>Você recebe:</b> plantas, cortes, fachadas, quadro de áreas e detalhamentos.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="str">
           <h3>Estrutural</h3>
           <p>Fundações, pilares, vigas e lajes dimensionados e detalhados para a obra.</p>
           <p class="get"><b>Você recebe:</b> formas, armações, quantitativo de aço e concreto e memorial.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="ele">
           <h3>Elétrico</h3>
           <p>Circuitos, quadros, iluminação e tomadas, conforme a NBR 5410 e a concessionária local.</p>
           <p class="get"><b>Você recebe:</b> plantas de pontos e circuitos, diagrama unifilar e quadro de cargas.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="hid">
           <h3>Hidrossanitário</h3>
           <p>Água fria e quente, esgoto e águas pluviais, com reservatórios e caixas dimensionados.</p>
           <p class="get"><b>Você recebe:</b> plantas, isométricos, detalhes e memorial de cálculo.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="r3d">
           <h3>Modelagem 3D e renderização</h3>
           <p>Maquete eletrônica e imagens realistas para aprovar, vender ou apresentar o projeto.</p>
           <p class="get"><b>Você recebe:</b> imagens renderizadas de fachadas e ambientes.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="int">
           <h3>Design de interiores</h3>
           <p>Layout, marcenaria, iluminação e acabamentos pensados para cada ambiente.</p>
           <p class="get"><b>Você recebe:</b> layout, projeto de marcenaria, paginação e lista de acabamentos.</p>
@@ -484,17 +512,18 @@ footer a:hover{color:#fff}
       </div>
       <div class="group">
         <p class="group-title"><strong>Execução de obras</strong><span>Em todo o Sul do Brasil</span></p>
-        <article class="svc">
+        <article class="svc" data-m="str">
           <h3>Construção e reforma</h3>
           <p>Casas, edifícios e espaços comerciais executados por quem fez o projeto, do canteiro ao acabamento.</p>
           <p class="get"><b>Você recebe:</b> obra executada com cronograma, diário de obra e medições.</p>
         </article>
-        <article class="svc">
+        <article class="svc" data-m="r3d">
           <h3>Acompanhamento técnico</h3>
           <p>Visitas e responsabilidade técnica para quem vai construir com equipe própria, conferindo a obra contra o projeto.</p>
           <p class="get"><b>Você recebe:</b> relatórios de visita e ART de execução.</p>
         </article>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -556,7 +585,7 @@ footer a:hover{color:#fff}
       <ul class="quals">
         <li><b>Infraestrutura</b><span>Especialização em engenharia geotécnica e em engenharia de pavimentação</span></li>
         <li><b>Edificações</b><span>Projetos arquitetônico, estrutural, elétrico e hidrossanitário, com design de interiores</span></li>
-        <li><b>Gestão</b><span>Certificação PMP em gerenciamento de projetos</span></li>
+        <li><b>Gestão</b><span>Certificação PMP em gerenciamento</span></li>
         <li><b>Ferramentas</b><span>AutoCAD Civil 3D para terreno, greides, redes e volumes; modelagem 3D e renderização</span></li>
         <li><b>Responsabilidade</b><span>ART emitida no CREA em todos os projetos e obras</span></li>
       </ul>
@@ -707,7 +736,6 @@ function initInfra(){
   }catch(e){h=null}
   if(!h)return;
   player.hidden=false;
-  if(h.reduce)pp.hidden=true;
   pp.addEventListener('click',()=>setPP(h.toggle()));
   chips.forEach(c=>c.addEventListener('click',()=>h.seek(+c.dataset.s)));
 }
@@ -729,14 +757,25 @@ function initEdif(){
     if(auto){requestAnimationFrame(()=>requestAnimationFrame(()=>{f.style.transition='';f.style.width='100%'}))}else f.style.width='100%';
     capT.textContent=TXT[m][0];capD.textContent=TXT[m][1];hs.setMode(m);
   };
-  const start=()=>{clearInterval(timer);if(auto&&!hs.reduce)timer=setInterval(()=>pick((idx+1)%chips.length),3900)};
+  const start=()=>{clearInterval(timer);if(auto)timer=setInterval(()=>pick((idx+1)%chips.length),3900)};
   const stop=()=>{auto=false;clearInterval(timer);setPP();pick(idx)};
   chips.forEach((c,i)=>c.addEventListener('click',()=>{auto=false;clearInterval(timer);setPP();pick(i)}));
   pp.addEventListener('click',()=>{if(auto)stop();else{auto=true;setPP();pick((idx+1)%chips.length);start()}});
   stage.addEventListener('pointerdown',()=>{if(auto)stop()});
-  if(hs.reduce){auto=false;pp.hidden=true}
   setPP();pick(0);
   const io=new IntersectionObserver(es=>{if(es[0].isIntersecting)start();else clearInterval(timer)},{threshold:.3});io.observe(stage);
+  /* modelo que acompanha a rolagem da lista de serviços */
+  const box=document.getElementById('edifModel'),capM=document.getElementById('modelCap');
+  let h2=null;
+  try{h2=houseScene({canvas:document.getElementById('casa2'),host:box,onReady:()=>box.classList.add('ready')})}catch(e){h2=null}
+  if(!h2)return;
+  const svcs=[...document.querySelectorAll('#edif-servicos .svc[data-m]')];
+  let cur=null;
+  const setM=el=>{if(el===cur)return;cur=el;svcs.forEach(s=>s.classList.toggle('on',s===el));h2.setMode(el.dataset.m);capM.innerHTML='';const b=document.createElement('b');b.textContent=el.querySelector('h3').textContent;capM.append(b)};
+  const narrow=matchMedia('(max-width:900px)').matches;
+  const io2=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting)setM(e.target)},{rootMargin:narrow?'-58% 0px -32% 0px':'-42% 0px -48% 0px'});
+  svcs.forEach(s=>{io2.observe(s);s.addEventListener('mouseenter',()=>setM(s))});
+  setM(svcs[0]);
 }
 const run=k=>k==='edif'?initEdif():initInfra();
 run(document.body.dataset.tab);

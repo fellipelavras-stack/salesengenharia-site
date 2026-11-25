@@ -337,7 +337,7 @@ export function heroScene(o) {
     { t: 0, end: 2.6 }, { t: 2.6, end: 6.6 }, { t: 6.6, end: 10.2 }, { t: 10.2, end: 13.6 }, { t: 13.6, end: 19.5 }
   ];
   const END = 19.5, HOLD = 6;
-  let T = reduce ? END : 0, playing = !reduce, stageNow = -1;
+  let T = 0, playing = true, stageNow = -1;
   function apply(T) {
     const e1 = ease((T - 2.6) / 3.6), e2 = ease((T - 6.8) / 3);
     const green = ease((T - 10.2) / 3);
@@ -380,7 +380,7 @@ export function heroScene(o) {
   new ResizeObserver(resize).observe(host); resize();
   let time = 0;
   function placeCam() {
-    const az = -.62 + (reduce ? 0 : .16 * Math.sin(time * .11)) + orbit.drag, el = .5;
+    const az = -.62 + .16 * Math.sin(time * .11) + orbit.drag, el = .5;
     camera.position.set(target.x + dist * Math.sin(az) * Math.cos(el), target.y + dist * Math.sin(el), target.z + dist * Math.cos(az) * Math.cos(el));
     camera.lookAt(target);
   }
@@ -396,10 +396,10 @@ export function heroScene(o) {
   apply(T); placeCam();
   return {
     stages: STAGES,
-    seek(s) { T = reduce ? STAGES[s].end : STAGES[s].t; if (!reduce) playing = true; o.onPlay && o.onPlay(playing); loop.kick(); },
-    toggle() { if (reduce) return false; if (!playing && T >= END) T = 0; playing = !playing; return playing; },
+    seek(s) { T = STAGES[s].t; playing = true; o.onPlay && o.onPlay(playing); loop.kick(); },
+    toggle() { if (!playing && T >= END) T = 0; playing = !playing; return playing; },
     get playing() { return playing; },
-    reduce
+    reduce: false
   };
 }
 
@@ -562,7 +562,7 @@ export function houseScene(o) {
   const goldC = col(GOLD);
   let mode = 'r3d';
   const elev = { cur: .5, tgt: .5 };
-  function setMode(m) { mode = m; elev.tgt = m === 'int' ? .95 : (m === 'str' || m === 'ele' || m === 'hid') ? .62 : .5; if (reduce) step(1); }
+  function setMode(m) { mode = m; elev.tgt = m === 'int' ? .95 : (m === 'str' || m === 'ele' || m === 'hid') ? .62 : .5; }
   function step(k) {
     items.forEach(m => {
       const tech = mode === 'str' || mode === 'ele' || mode === 'hid';
@@ -587,18 +587,18 @@ export function houseScene(o) {
     if (wide) camera.setViewOffset(W, H, -W * o.shift, 0, W, H); else camera.clearViewOffset();
     const aspect = wide ? W * (1 - 2 * o.shift) / H : camera.aspect;
     const R = 7.0, vf = THREE.MathUtils.degToRad(camera.fov / 2), hf = Math.atan(Math.tan(vf) * aspect);
-    dist = R / Math.sin(Math.min(vf, hf)) * (wide ? 1.16 : 1.12); camera.updateProjectionMatrix();
+    dist = R / Math.sin(Math.min(vf, hf)) * (wide ? 1.16 : (o.shift ? 1.12 : 1.0)); camera.updateProjectionMatrix();
   }
   new ResizeObserver(resize).observe(host); resize();
   let time = 0, first = true;
   step(1);
   loopWhenVisible(host, dt => {
-    time += dt; step(reduce ? 1 : Math.min(1, dt * 5));
-    const az = -.55 + (reduce ? 0 : .22 * Math.sin(time * .13)) + orbit.drag, el = elev.cur;
+    time += dt; step(Math.min(1, dt * 5));
+    const az = -.55 + .22 * Math.sin(time * .13) + orbit.drag, el = elev.cur;
     camera.position.set(target.x + dist * Math.sin(az) * Math.cos(el), target.y + dist * Math.sin(el), target.z + dist * Math.cos(az) * Math.cos(el));
     camera.lookAt(target);
     renderer.render(scene, camera);
     if (first) { first = false; o.onReady && o.onReady(); }
   });
-  return { setMode, reduce };
+  return { setMode, reduce: false };
 }
