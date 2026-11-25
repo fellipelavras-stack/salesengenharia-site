@@ -1,0 +1,5 @@
+Créditos
+
+Base do mapa do Brasil: SVG Maps (@svg-maps/brazil), licença CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+Fonte Archivo: SIL Open Font License (OFL-Archivo.txt)
+three.js r170: licença MIT (THREE-LICENSE.txt)
