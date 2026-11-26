@@ -164,6 +164,13 @@ p{margin:0}
 .svc h3{color:var(--navy)}
 .svc .get{grid-column:2;font-size:14.5px;color:var(--muted);line-height:1.5}
 .svc .get b{color:var(--navy);font-weight:600}
+.svc.lot .lot-list{grid-column:2;list-style:none;margin:8px 0 6px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 28px;counter-reset:lot}
+.lot-list li{counter-increment:lot;display:grid;grid-template-columns:28px 1fr;align-content:start;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.4}
+.lot-list li::before{content:counter(lot,decimal-leading-zero);grid-row:1/3;color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+.lot-list b{color:var(--navy);font-weight:600}
+.lot-list span{color:var(--muted)}
+@media (max-width:1100px){.svc.lot .lot-list{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:860px){.svc.lot .lot-list{grid-column:1}}
 .services.edif{background:#F7F8FB}
 .services .wrap.edif-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,4vw,56px);align-items:start}
 .edif-grid .edif-model{grid-column:2;grid-row:1}
@@ -387,10 +394,32 @@ footer a:hover{color:#fff}
           <p>Asfalto, blocos intertravados (paver) e pavimento de concreto, com camadas dimensionadas para o tráfego e o solo do local.</p>
           <p class="get"><b>Você recebe:</b> dimensionamento, seções-tipo, detalhes construtivos e quantitativos.</p>
         </article>
-        <article class="svc">
-          <h3>Infraestrutura de loteamentos</h3>
-          <p>Conjunto de projetos para aprovar e implantar o empreendimento: terraplenagem, drenagem, pavimentação e sinalização, com coordenação dos projetos de água, esgoto e iluminação.</p>
-          <p class="get"><b>Você recebe:</b> projetos para aprovação na prefeitura, orçamento e cronograma de implantação.</p>
+        <article class="svc lot">
+          <h3>Projetos completos para loteamentos</h3>
+          <p>Todos os projetos que a prefeitura e as concessionárias pedem para aprovar e implantar um loteamento, feitos ou coordenados por nós em um único pacote, compatibilizados entre si.</p>
+          <ol class="lot-list">
+            <li><b>Levantamento planialtimétrico cadastral</b><span>topografia do terreno, divisas, árvores e interferências</span></li>
+            <li><b>Sondagens e estudo geotécnico</b><span>tipo de solo, nível d’água e capacidade de suporte</span></li>
+            <li><b>Estudo de viabilidade</b><span>consulta à prefeitura, aproveitamento da área e custo estimado</span></li>
+            <li><b>Projeto urbanístico</b><span>quadras, lotes, áreas verdes, institucionais e sistema viário</span></li>
+            <li><b>Projeto geométrico viário</b><span>eixos, greides, perfis e seções das ruas</span></li>
+            <li><b>Projeto de terraplenagem</b><span>platôs, taludes e quadro de volumes de corte e aterro</span></li>
+            <li><b>Projeto de contenções e taludes</b><span>muros, cortinas e estabilidade, quando o relevo exigir</span></li>
+            <li><b>Projeto de drenagem pluvial</b><span>redes, bocas de lobo, galerias e dissipadores</span></li>
+            <li><b>Projeto de pavimentação</b><span>dimensionamento das ruas em asfalto, paver ou concreto</span></li>
+            <li><b>Projeto de calçadas e acessibilidade</b><span>passeios, rampas e piso tátil</span></li>
+            <li><b>Projeto de sinalização viária</b><span>placas e pintura de faixas</span></li>
+            <li><b>Projeto de abastecimento de água</b><span>rede de distribuição, ligações e reservação</span></li>
+            <li><b>Projeto de esgotamento sanitário</b><span>rede coletora e tratamento, quando necessário</span></li>
+            <li><b>Projeto de rede elétrica</b><span>rede de distribuição conforme a concessionária</span></li>
+            <li><b>Projeto de iluminação pública</b><span>postes, luminárias e circuitos</span></li>
+            <li><b>Projeto de hidrantes</b><span>rede preventiva contra incêndio, quando exigida</span></li>
+            <li><b>Projeto paisagístico e de arborização</b><span>praças, áreas verdes e arborização das ruas</span></li>
+            <li><b>Estudos e licenciamento ambiental</b><span>controle de erosão, áreas de preservação e licenças</span></li>
+            <li><b>Memoriais descritivos dos lotes</b><span>documentação para aprovação e registro em cartório</span></li>
+            <li><b>Orçamento e cronograma de obras</b><span>quantitativos e prazos para a caução e a implantação</span></li>
+          </ol>
+          <p class="get"><b>Você recebe:</b> todos os projetos em DWG e PDF, memoriais, quantitativos e ARTs, prontos para aprovação.</p>
         </article>
       </div>
       <div class="group">
