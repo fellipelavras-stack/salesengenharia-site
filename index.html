@@ -97,7 +97,8 @@ p{margin:0}
 .hero-main{position:relative;min-height:min(840px,calc(100vh - 72px));display:flex;flex-direction:column}
 .hero-main>.wrap{width:100%}
 .stage{position:absolute;inset:0;overflow:hidden}
-.stage canvas,.stage .poster{position:absolute;inset:0;width:100%;height:100%;max-width:none}
+.stage canvas,.stage .poster,.stage video{position:absolute;inset:0;width:100%;height:100%;max-width:none}
+.stage video{object-fit:cover;object-position:center}
 .stage .poster{object-fit:cover;object-position:center;transition:opacity .6s}
 .stage.ready .poster{opacity:0;pointer-events:none}
 .stage canvas{cursor:grab;touch-action:pan-y}
@@ -139,7 +140,7 @@ p{margin:0}
   .hero-main{min-height:0}
   .hero-main::before{display:none}
   .stage{position:relative;inset:auto;height:clamp(340px,92vw,460px);order:2}
-  .stage .poster{object-position:68% center}
+  .stage .poster,.stage video{object-position:62% center}
   .hero-copy{order:1;padding-bottom:8px}
   .player-wrap{order:3;padding-top:4px}
   .creds{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -314,7 +315,10 @@ footer a:hover{color:#fff}
   <div class="hero-main">
     <div class="stage" id="stage">
       <img class="poster" src="hero-poster.jpg" alt="" aria-hidden="true">
-      <canvas id="cena" role="img" aria-label="Animação 3D realista em seis etapas: terreno natural, contenções com cortina atirantada e muro de arrimo, terraplenagem com máquinas, drenagem, construção de um galpão e de um prédio e, por último, a pavimentação."></canvas>
+      <video id="obra" muted playsinline autoplay loop preload="auto" poster="hero-poster.jpg" aria-label="Vídeo da evolução de uma obra de infraestrutura: terreno natural, terraplenagem com contenções, drenagem, construção do galpão e do prédio, pavimentação e obra concluída.">
+        <source src="obra-m.mp4" type="video/mp4" media="(max-width: 700px)">
+        <source src="obra.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="wrap hero-copy">
       <div class="hero-text">
@@ -328,16 +332,16 @@ footer a:hover{color:#fff}
     </div>
     <div class="wrap player-wrap">
       <div class="player" id="player" hidden>
-        <div class="cap" aria-live="polite"><strong id="capT">Terreno natural</strong><span id="capD"></span><span class="legend" id="legend"><span><i style="background:#a2522c"></i>Corte</span><span><i style="background:#b49167"></i>Aterro</span></span></div>
+        <div class="cap" aria-live="polite"><strong id="capT">Terreno natural</strong><span id="capD"></span></div>
         <div class="bar">
-          <button class="pp" id="pp" type="button" aria-label="Pausar animação"><svg viewBox="0 0 24 24" fill="currentColor" id="ppIcon"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+          <button class="pp" id="pp" type="button" aria-label="Pausar vídeo"><svg viewBox="0 0 24 24" fill="currentColor" id="ppIcon"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
           <ol class="chips six" id="chips">
             <li><button type="button" data-s="0"><span class="fill"></span><span class="lbl">Terreno</span><span class="num" aria-hidden="true">1</span></button></li>
-            <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Contenções</span><span class="num" aria-hidden="true">2</span></button></li>
-            <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">3</span></button></li>
-            <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Drenagem</span><span class="num" aria-hidden="true">4</span></button></li>
-            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">5</span></button></li>
-            <li><button type="button" data-s="5"><span class="fill"></span><span class="lbl">Pavimentação</span><span class="num" aria-hidden="true">6</span></button></li>
+            <li><button type="button" data-s="1"><span class="fill"></span><span class="lbl">Terraplenagem</span><span class="num" aria-hidden="true">2</span></button></li>
+            <li><button type="button" data-s="2"><span class="fill"></span><span class="lbl">Drenagem</span><span class="num" aria-hidden="true">3</span></button></li>
+            <li><button type="button" data-s="3"><span class="fill"></span><span class="lbl">Edificação</span><span class="num" aria-hidden="true">4</span></button></li>
+            <li><button type="button" data-s="4"><span class="fill"></span><span class="lbl">Pavimentação</span><span class="num" aria-hidden="true">5</span></button></li>
+            <li><button type="button" data-s="5"><span class="fill"></span><span class="lbl">Obra pronta</span><span class="num" aria-hidden="true">6</span></button></li>
           </ol>
         </div>
       </div>
@@ -709,38 +713,50 @@ form.addEventListener('submit',e=>{
 }
 </script>
 <script type="module">
-import {heroScene,houseScene} from './cena-real.js?v=6';
+import {houseScene} from './cena-real.js?v=6';
 {
 const PAUSE='<path d="M7 5h3v14H7zM14 5h3v14h-3z"/>',PLAY='<path d="M8 5v14l11-7z"/>';
 let infraOn=false,edifOn=false;
 function initInfra(){
   if(infraOn)return;infraOn=true;
-  const STAGE_TXT=[
-    ['Terreno natural','Levantamento topográfico do terreno e da vegetação.'],
-    ['Contenções','Cortina atirantada e muro de arrimo executados antes da escavação.'],
-    ['Terraplenagem','Escavadeira, caminhões e trator levando o terreno às plataformas.'],
-    ['Drenagem','Tubos, canaletas e bocas de lobo instalados antes do pavimento.'],
-    ['Edificação','Estrutura e fechamento do galpão e do prédio.'],
-    ['Pavimentação','Asfalto e pavimento intertravado por último, com a obra pronta.']
+  const TXT=[
+    ['Terreno natural','Encosta com mata nativa e limpeza da área da obra.'],
+    ['Terraplenagem e contenções','Corte, aterro e cortina atirantada formando as plataformas.'],
+    ['Drenagem','Tubos de concreto, caixas e canaletas antes do pavimento.'],
+    ['Edificação','Estrutura metálica do galpão e prédio em concreto.'],
+    ['Pavimentação','Asfalto nas vias com vibroacabadora e rolos.'],
+    ['Obra concluída','Vias pavimentadas, taludes gramados e paisagismo.']
   ];
-  const stage=document.getElementById('stage'),player=document.getElementById('player');
-  const chips=[...document.querySelectorAll('#chips button')],capT=document.getElementById('capT'),capD=document.getElementById('capD'),legend=document.getElementById('legend');
-  const pp=document.getElementById('pp'),ppIcon=document.getElementById('ppIcon');
-  const setPP=p=>{ppIcon.innerHTML=p?PAUSE:PLAY;pp.setAttribute('aria-label',p?'Pausar animação':'Reproduzir animação')};
-  let h=null;
-  try{
-    const qs=new URLSearchParams(location.search);
-    h=heroScene({canvas:document.getElementById('cena'),host:stage,startT:+(qs.get('t')||0),paused:qs.has('t'),onReady:()=>stage.classList.add('ready'),onPlay:setPP,
-      onStage:(s,p,changed)=>{
-        chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
-        if(changed){capT.textContent=STAGE_TXT[s][0];capD.textContent=STAGE_TXT[s][1];legend.classList.toggle('on',s===2)}
-      }});
-  }catch(e){h=null}
-  if(!h)return;
-  if(new URLSearchParams(location.search).has('t'))window.__h=h;
-  player.hidden=false;
-  pp.addEventListener('click',()=>setPP(h.toggle()));
-  chips.forEach(c=>c.addEventListener('click',()=>h.seek(+c.dataset.s)));
+  const SEG=[0,7.93,15.86,23.79,31.72,39.65,51.5];
+  const v=document.getElementById('obra'),player=document.getElementById('player');
+  const chips=[...document.querySelectorAll('#chips button')],capT=document.getElementById('capT'),capD=document.getElementById('capD');
+  const pp=document.getElementById('ppIcon').parentNode,ppIcon=document.getElementById('ppIcon');
+  const canHover=matchMedia('(hover: hover)').matches;
+  let cur=-1,hold=null,userPaused=false,tt=0;
+  const setPP=p=>{ppIcon.innerHTML=p?PAUSE:PLAY;pp.setAttribute('aria-label',p?'Pausar vídeo':'Reproduzir vídeo')};
+  const segOf=t=>{for(let k=SEG.length-2;k>=0;k--)if(t>=SEG[k]-.05)return k;return 0};
+  function paint(){
+    const t=v.currentTime,s=segOf(t),p=Math.min(1,Math.max(0,(t-SEG[s])/(SEG[s+1]-SEG[s])));
+    chips.forEach((c,i)=>{c.classList.toggle('done',i<s);c.querySelector('.fill').style.width=i<s?'100%':i===s?(p*100).toFixed(1)+'%':'0';if(i===s)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current')});
+    if(s!==cur){cur=s;capT.textContent=TXT[s][0];capD.textContent=TXT[s][1]}
+    if(hold!==null&&(t>=SEG[hold+1]-.08||t<SEG[hold]-.1))v.currentTime=SEG[hold]+.02;
+  }
+  (function loop(){paint();requestAnimationFrame(loop)})();
+  const play=()=>{const r=v.play();if(r&&r.catch)r.catch(()=>{})};
+  const goTo=k=>{v.currentTime=SEG[k]+.02;if(!userPaused)play()};
+  chips.forEach((c,k)=>{
+    c.addEventListener('mouseenter',()=>{hold=k;if(segOf(v.currentTime)!==k)goTo(k)});
+    c.addEventListener('mouseleave',()=>{if(hold===k)hold=null});
+    c.addEventListener('focusin',()=>{hold=k;goTo(k)});
+    c.addEventListener('focusout',()=>{hold=null});
+    c.addEventListener('click',()=>{goTo(k);if(!canHover){hold=k;clearTimeout(tt);tt=setTimeout(()=>{hold=null},8000)}});
+  });
+  pp.addEventListener('click',()=>{userPaused=!v.paused;userPaused?v.pause():play()});
+  v.addEventListener('play',()=>setPP(true));v.addEventListener('pause',()=>setPP(false));
+  new IntersectionObserver(es=>{if(es[0].isIntersecting){if(!userPaused)play()}else v.pause()},{threshold:.15}).observe(v);
+  const ready=()=>document.getElementById('stage').classList.add('ready');
+  if(v.readyState>=2)ready();else v.addEventListener('loadeddata',ready,{once:true});
+  player.hidden=false;play();
 }
 function initEdif(){
   if(edifOn)return;edifOn=true;
